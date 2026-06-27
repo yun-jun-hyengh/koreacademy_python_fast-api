@@ -27,3 +27,15 @@ class BoardRepository:
         result = await self.db.execute(query, insert_data)
         await self.db.commit()
         return result.lastrowid
+
+    # 게시글 조회
+    async def boardList(self) -> list:
+        query = text(
+            '''
+                SELECT idx, title, writer, content, created_at
+                FROM board order by idx desc
+            '''
+        );
+        result = await self.db.execute(query);
+        rows = result.mappings().all();
+        return list(rows);

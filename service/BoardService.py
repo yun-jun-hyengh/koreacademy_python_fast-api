@@ -21,3 +21,8 @@ class BoardService:
                 detail="게시글 등록에 실패했습니다."
             )
         return True;
+
+    # 게시글 조회
+    async def getBoardList(self) -> list:
+        board_list = await self.repository.boardList();
+        return board_list;
