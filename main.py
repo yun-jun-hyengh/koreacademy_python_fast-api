@@ -73,7 +73,7 @@ async def create_item(item: Item):
 @app.delete("/product/delete/{item_id}")
 async def delete_item(item_id: int):
     for index, item in enumerate(items_db):
-        if item["item_id"] == item.id:
+        if item["item_id"] == item_id:
             deleted_item = items_db.pop(index);
             return {"message": "상품이 삭제되었습니다.", "data": deleted_item}
     return HTTPException(status_code=404, detail="삭제할 상품을 찾을 수 없습니다.")

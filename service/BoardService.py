@@ -26,3 +26,36 @@ class BoardService:
     async def getBoardList(self) -> list:
         board_list = await self.repository.boardList();
         return board_list;
+
+    # 게시글 상세 조회
+    async def getBoardDetail(self, idx: int) -> dict:
+        board = await self.repository.detailBoard(idx);
+
+        if not board:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="해당 게시글을 찾을 수 없습니다"
+            )
+        return board;
+
+    # 게시글 삭제
+    async def deleteBoard(self, idx: int) -> bool:
+        row = await self.repository.deleteBoard(idx);
+        if row == 0:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail={"게시글 삭제에 실패하였습니다."}
+            )
+        else:
+            return True;
+
+    # 게시글 수정
+    async def updateBoard(self, idx: int, board: BoardUpdate) -> bool:
+        row = await self.repository.updateBoard(idx, board);
+        if row == 0:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail={"게시글 수정에 실패하였습니다."}
+            )
+        else:
+            return True
