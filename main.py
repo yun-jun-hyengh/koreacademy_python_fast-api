@@ -1,4 +1,6 @@
 from fastapi import FastAPI, HTTPException  # fastapi 라는 패키지에서 FastAPI 라는 클래스를 가져옴
+from starlette.templating import Jinja2Templates
+
 from models import board
 from models.item import Item # models 폴더 내부의 item.py 파일로부터 Item 클래스를 가져온다
 from routers.boardRouters import router as board_router
@@ -8,6 +10,10 @@ app.include_router(board_router)
 # 웹 사이트에 가장 첫 페이지(메인페이지)를 뜻함 한마디로 루트경로
 # 브라우저에 naver.com을 치고 엔터하면 실제로 뒤에 슬래시가 생략된
 # naver.com/ 으로 접속하는 것임
+
+# 템플릿 폼더 위치를 지정한다 !!
+templates = Jinja2Templates(directory="templates")
+
 @app.get("/")
 async def hello():
     return {"message": "Hello World"}

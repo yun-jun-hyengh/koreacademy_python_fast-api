@@ -37,3 +37,8 @@ async def deleteBoard(idx: int, db: AsyncSession = Depends(get_db)):
     boardService = BoardService(db);
     await boardService.deleteBoard(idx);
     return {"success": True, "message": "게시글이 삭제되었습니다."};
+
+
+'''
+pip install jinja2 => 프론트엔드 이거 설치하기 
+'''
